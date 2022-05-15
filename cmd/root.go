@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+    "github.com/hisamafahri/cygnus/cmd/create"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -30,6 +31,7 @@ func Execute() {
 func init() {
     rootCmd.AddCommand(versionCmd)
     rootCmd.AddCommand(initCmd)
+    rootCmd.AddCommand(create.CreateCmd)
 }
 
 

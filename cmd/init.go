@@ -37,8 +37,7 @@ var initCmd = &cobra.Command{
             fmt.Printf(" error: %s", err)
             return
         }
-        // TODO: Create config file
-        // TODO: Write the default value to the config file
+
         config := model.Config{}
         config.App.Name = groupName
 
