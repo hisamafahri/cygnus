@@ -1,8 +1,9 @@
 package model
 
 import (
-    "errors"
-    )
+	"errors"
+	"strings"
+)
 
 type Config struct {
     App AppData
@@ -15,7 +16,7 @@ type AppData struct {
 }
 
 type Group struct {
-    Files []string
+    Files []string // IMPORTANT: In lowercase
     Users []string
 }
 
@@ -53,12 +54,32 @@ func (data *Config) CreateUser(name, email *string) (error) {
         user = data.Users
     }
 
-    if _, ok := user[*email]; ok {
+    if _, ok := user[strings.ToLower(*email)]; ok {
         return errors.New("User with that email already exist\n")
     }
-    user[*email] = User {
+    user[strings.ToLower(*email)] = User {
         Name: *name,
     }
     data.Users = user
+    return nil
+}
+
+// TODO: GroupName input as a []string
+func (data *Config) AddFile(filePath string, groupName *string) (error) {
+    var files []string
+
+    if len(data.Groups[*groupName].Files) == 0 {
+        files = []string{}
+    } else {
+        files = data.Groups[*groupName].Files
+    }
+
+    // TODO: Loop through if GroupName input is []string
+    files = append(files, filePath)
+
+    data.Groups[*groupName] = Group {
+        Files: files,
+        Users: data.Groups[*groupName].Users,
+    }
     return nil
 }
