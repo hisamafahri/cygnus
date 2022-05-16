@@ -36,7 +36,7 @@ var initCmd = &cobra.Command{
             return
         }
 
-        err = utils.WriteNewConfig(&appName)
+        err = utils.EncodeNewConfig(&appName)
         if err != nil {
             fmt.Printf(" error: %s", err)
             return

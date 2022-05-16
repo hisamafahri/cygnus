@@ -33,10 +33,10 @@ func (data *Config) CreateGroup(name *string) (error) {
         group = data.Groups
     }
 
-    if _, ok := group[*name]; ok {
+    if _, ok := group[strings.ToLower(*name)]; ok {
         return errors.New("Group already exist\n")
     }
-    group[*name] = Group {
+    group[strings.ToLower(*name)] = Group {
         Files: []string{},
         Users: []string{},
     }
@@ -68,18 +68,19 @@ func (data *Config) CreateUser(name, email *string) (error) {
 func (data *Config) AddFile(filePath string, groupName *string) (error) {
     var files []string
 
-    if len(data.Groups[*groupName].Files) == 0 {
+    if len(data.Groups[strings.ToLower(*groupName)].Files) == 0 {
         files = []string{}
     } else {
-        files = data.Groups[*groupName].Files
+        files = data.Groups[strings.ToLower(*groupName)].Files
     }
 
     // TODO: Loop through if GroupName input is []string
+    // URGENT: Keep the capitalisation of the input
     files = append(files, filePath)
 
-    data.Groups[*groupName] = Group {
+    data.Groups[strings.ToLower(*groupName)] = Group {
         Files: files,
-        Users: data.Groups[*groupName].Users,
+        Users: data.Groups[strings.ToLower(*groupName)].Users,
     }
     return nil
 }

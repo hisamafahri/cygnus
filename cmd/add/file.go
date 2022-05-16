@@ -3,9 +3,6 @@ package add
 import (
 	"fmt"
 
-	"github.com/BurntSushi/toml"
-	"github.com/hisamafahri/cygnus/constant"
-	"github.com/hisamafahri/cygnus/model"
 	"github.com/hisamafahri/cygnus/utils"
 )
 
@@ -16,13 +13,7 @@ func addFile() {
         return
     }
 
-    var config model.Config
-
-    _, err = toml.DecodeFile(constant.ConfigFilePath, &config)
-    if err != nil {
-    fmt.Printf(" error: %s", err)
-        return
-    }
+    config, err := utils.DecodeConfig()
 
     // TODO: Autocomplete
     fileQs := "Which file you want to add?"
@@ -46,9 +37,10 @@ func addFile() {
         return
     }
 
-    err = utils.WriteToConfig(config)
+    err = utils.EncodeConfig(config)
     if err != nil {
         fmt.Printf(" error: %s", err)
         return
     }
 }
+

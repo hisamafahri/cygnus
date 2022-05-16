@@ -1,15 +1,15 @@
 package utils
 
 import (
-    "errors"
-    "os"
+	"errors"
+	"os"
 
-    "github.com/BurntSushi/toml"
-    "github.com/hisamafahri/cygnus/constant"
-    "github.com/hisamafahri/cygnus/model"
-    )
+	"github.com/BurntSushi/toml"
+	"github.com/hisamafahri/cygnus/constant"
+	"github.com/hisamafahri/cygnus/model"
+)
 
-func WriteToConfig(config model.Config) error {
+func EncodeConfig(config model.Config) error {
     f, err := os.OpenFile(constant.ConfigFilePath, os.O_WRONLY, 0600)
     if err != nil {
         return err
@@ -26,20 +26,7 @@ func WriteToConfig(config model.Config) error {
     return nil
 }
 
-func IsInitialized() error {
-    isExist, err := IsFolderExist(".cyg")
-    if err != nil {
-        return err
-    }
-
-    if !isExist {
-        return errors.New("Cygnus is not initialize in this repository\n")
-    }
-
-    return nil
-}
-
-func WriteNewConfig(appName *string) error {
+func EncodeNewConfig(appName *string) error {
     var config model.Config
     config.CreateApp(appName)
 
@@ -58,3 +45,28 @@ func WriteNewConfig(appName *string) error {
 
     return nil
 }
+
+func DecodeConfig() (model.Config, error) {
+    var config model.Config
+
+    _, err := toml.DecodeFile(constant.ConfigFilePath, &config)
+    if err != nil {
+        return model.Config{}, err
+    }
+
+    return config, nil
+}
+
+func IsInitialized() error {
+    isExist, err := IsFolderExist(".cyg")
+    if err != nil {
+        return err
+    }
+
+    if !isExist {
+        return errors.New("Cygnus is not initialize in this repository\n")
+    }
+
+    return nil
+}
+

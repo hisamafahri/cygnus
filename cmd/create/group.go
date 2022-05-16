@@ -3,9 +3,6 @@ package create
 import (
 	"fmt"
 
-	"github.com/BurntSushi/toml"
-	"github.com/hisamafahri/cygnus/constant"
-	"github.com/hisamafahri/cygnus/model"
 	"github.com/hisamafahri/cygnus/utils"
 )
 
@@ -16,13 +13,7 @@ func createGroup() {
         return
     }
 
-    var config model.Config
-
-    _, err = toml.DecodeFile(constant.ConfigFilePath, &config)
-    if err != nil {
-        fmt.Printf(" error: %s", err)
-        return
-    }
+    config, err := utils.DecodeConfig()
 
     groupQs := "What is your group name?"
     groupName, err := utils.PromptText(&groupQs)
@@ -37,7 +28,7 @@ func createGroup() {
         return
     }
 
-    err = utils.WriteToConfig(config)
+    err = utils.EncodeConfig(config)
     if err != nil {
         fmt.Printf(" error: %s", err)
         return
