@@ -1,25 +1,18 @@
 package create
 
 import (
-    "fmt"
-    "os"
+	"fmt"
 
-    "github.com/BurntSushi/toml"
-    "github.com/hisamafahri/cygnus/constant"
-    "github.com/hisamafahri/cygnus/model"
-    "github.com/hisamafahri/cygnus/utils"
-    )
+	"github.com/BurntSushi/toml"
+	"github.com/hisamafahri/cygnus/constant"
+	"github.com/hisamafahri/cygnus/model"
+	"github.com/hisamafahri/cygnus/utils"
+)
 
 func createUser() {
-    isExist, err := utils.IsFolderExist(".cyg")
+    err := utils.IsInitialized()
     if err != nil {
         fmt.Printf(" error: %s", err)
-        return
-    }
-
-    if !isExist {
-        fmt.Println(" error: Cygnus is not initialized in this repository")
-        fmt.Println(" info: run 'cygnus init' to get started")
         return
     }
 
