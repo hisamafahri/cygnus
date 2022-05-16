@@ -24,8 +24,8 @@ func createGroup() {
         return
     }
 
-    initQs := "What is your group name?"
-    groupName, err := utils.PromptText(&initQs)
+    groupQs := "What is your group name?"
+    groupName, err := utils.PromptText(&groupQs)
     if err != nil {
         fmt.Printf(" error: %s", err)
         return

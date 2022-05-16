@@ -7,6 +7,7 @@ import (
 type Config struct {
     App AppData
     Groups map[string]Group
+    Users map[string]User
 }
 
 type AppData struct {
@@ -16,6 +17,11 @@ type AppData struct {
 type Group struct {
     Files []string
     Users []string
+}
+
+type User struct {
+    Name string
+    Email string
 }
 
 func (data *Config) CreateGroup(name *string) (error) {
@@ -35,5 +41,26 @@ func (data *Config) CreateGroup(name *string) (error) {
         Users: []string{},
     }
     data.Groups = group
+    return nil
+}
+
+
+func (data *Config) CreateUser(name, email *string) (error) {
+    var user map[string]User
+
+    if len(data.Users) == 0 {
+        user = make(map[string]User)
+    } else {
+        user = data.Users
+    }
+
+    if _, ok := user[*email]; ok {
+        return errors.New("User with that email already exist\n")
+    }
+    user[*email] = User {
+        Name: *name,
+        Email: *email,
+    }
+    data.Users = user
     return nil
 }
