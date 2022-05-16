@@ -3,8 +3,9 @@ package cmd
 import (
 	"os"
 
+	"github.com/hisamafahri/cygnus/cmd/add"
+	"github.com/hisamafahri/cygnus/cmd/create"
 	"github.com/spf13/cobra"
-    "github.com/hisamafahri/cygnus/cmd/create"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -32,6 +33,7 @@ func init() {
     rootCmd.AddCommand(versionCmd)
     rootCmd.AddCommand(initCmd)
     rootCmd.AddCommand(create.CreateCmd)
+    rootCmd.AddCommand(add.AddCmd)
 }
 
 

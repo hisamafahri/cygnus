@@ -8,7 +8,7 @@ import (
 
 var CreateCmd = &cobra.Command{
     Use:   "create",
-    Short: "Create a resource (group or user)",
+    Short: "Create a new group or user",
     ValidArgs: []string{"user", "group"},
     Args: utils.MatchMultipleArgs(cobra.MinimumNArgs(1), cobra.OnlyValidArgs),
     Run: func(cmd *cobra.Command, args []string) {

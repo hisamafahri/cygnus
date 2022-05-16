@@ -21,7 +21,6 @@ type Group struct {
 
 type User struct {
     Name string
-    Email string
 }
 
 func (data *Config) CreateGroup(name *string) (error) {
@@ -59,7 +58,6 @@ func (data *Config) CreateUser(name, email *string) (error) {
     }
     user[*email] = User {
         Name: *name,
-        Email: *email,
     }
     data.Users = user
     return nil
