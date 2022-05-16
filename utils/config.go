@@ -39,10 +39,12 @@ func IsInitialized() error {
     return nil
 }
 
-func WriteNewConfig(config model.Config) error {
+func WriteNewConfig(appName *string) error {
+    var config model.Config
+    config.App.Name = *appName
+
     f, err := os.Create(constant.ConfigFilePath)
     if err != nil {
-        // failed to create/open the file
         return err
     }
 

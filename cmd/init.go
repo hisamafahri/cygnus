@@ -1,14 +1,13 @@
 package cmd
 
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"os"
 
-    "github.com/hisamafahri/cygnus/constant"
-    "github.com/hisamafahri/cygnus/model"
-    "github.com/hisamafahri/cygnus/utils"
-    "github.com/spf13/cobra"
-    )
+	"github.com/hisamafahri/cygnus/constant"
+	"github.com/hisamafahri/cygnus/utils"
+	"github.com/spf13/cobra"
+)
 
 var initCmd = &cobra.Command{
     Use:   "init",
@@ -37,10 +36,7 @@ var initCmd = &cobra.Command{
             return
         }
 
-        config := model.Config{}
-        config.App.Name = appName
-
-        err = utils.WriteNewConfig(config)
+        err = utils.WriteNewConfig(&appName)
         if err != nil {
             fmt.Printf(" error: %s", err)
             return
