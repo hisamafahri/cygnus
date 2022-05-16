@@ -41,7 +41,7 @@ func IsInitialized() error {
 
 func WriteNewConfig(appName *string) error {
     var config model.Config
-    config.App.Name = *appName
+    config.CreateApp(appName)
 
     f, err := os.Create(constant.ConfigFilePath)
     if err != nil {

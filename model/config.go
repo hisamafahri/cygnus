@@ -83,3 +83,7 @@ func (data *Config) AddFile(filePath string, groupName *string) (error) {
     }
     return nil
 }
+
+func (data *Config) CreateApp(appName *string) {
+    data.App.Name = *appName
+}
