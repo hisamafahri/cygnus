@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/BurntSushi/toml"
+	"github.com/hisamafahri/cygnus/constant"
 	"github.com/hisamafahri/cygnus/model"
 	"github.com/hisamafahri/cygnus/utils"
 	"github.com/spf13/cobra"
@@ -26,22 +27,22 @@ var initCmd = &cobra.Command{
         }
 
         initQs := "What is your app name?"
-        groupName, err := utils.PromptText(&initQs)
+        appName, err := utils.PromptText(&initQs)
         if err != nil {
             // failed to create/open the file
             fmt.Printf(" error: %s", err)
             return
         }
 
-        if err := os.Mkdir(".cyg/", os.ModePerm); err != nil {
+        if err := os.Mkdir(constant.ConfigDirPath, os.ModePerm); err != nil {
             fmt.Printf(" error: %s", err)
             return
         }
 
         config := model.Config{}
-        config.App.Name = groupName
+        config.App.Name = appName
 
-        f, err := os.Create(".cyg/config.toml")
+        f, err := os.Create(constant.ConfigFilePath)
         if err != nil {
             // failed to create/open the file
             fmt.Printf(" error: %s", err)
